@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>ROOT Platform Business Presentation</title>
     <style>
         :root {
@@ -20,18 +20,32 @@
             margin: 0;
             padding: 0;
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        html, body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            width: 100%;
+            min-height: 100%;
+            overflow-x: hidden;
         }
 
         body {
-            background-color: var(--bg-color);
-            color: var(--text-main);
-            min-height: 100vh;
             display: flex;
             flex-direction: column;
-            overflow: hidden;
             justify-content: space-between;
-            padding: 40px;
+            padding: 24px 16px 32px 16px;
             position: relative;
+        }
+
+        @media (min-width: 1024px) {
+            body {
+                height: 100vh;
+                height: 100dvh;
+                overflow: hidden;
+                padding: 40px;
+            }
         }
 
         /* Moving Background Layer */
@@ -41,6 +55,7 @@
             left: 0;
             width: 100vw;
             height: 100vh;
+            height: 100dvh;
             z-index: 0;
             pointer-events: none;
         }
@@ -50,33 +65,62 @@
             max-width: 600px;
             margin: 0 auto;
             z-index: 10;
+            position: relative;
         }
 
         header h1 {
-            font-size: 2rem;
+            font-size: 1.65rem;
             font-weight: 600;
             letter-spacing: -0.02em;
-            margin-bottom: 8px;
+            margin-bottom: 6px;
         }
 
         header p {
             color: var(--text-muted);
-            font-size: 1rem;
+            font-size: 0.9rem;
         }
 
-        /* Presentation Canvas Scheme */
+        @media (min-width: 768px) {
+            header h1 {
+                font-size: 2rem;
+                margin-bottom: 8px;
+            }
+            header p {
+                font-size: 1rem;
+            }
+        }
+
+        /* Presentation Canvas Scheme: Stacked mobile-first, 3x2 hub-and-spoke on desktop */
         .presentation-container {
             position: relative;
             flex-grow: 1;
-            display: grid;
-            grid-template-columns: 1fr 1fr 1fr;
-            grid-template-rows: 1fr 1fr;
-            gap: 40px;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
             max-width: 1400px;
             width: 100%;
-            margin: 40px auto;
+            margin: 24px auto 0 auto;
             align-items: center;
             z-index: 5;
+        }
+
+        @media (min-width: 640px) and (max-width: 1023px) {
+            .presentation-container {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 20px;
+                margin-top: 28px;
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .presentation-container {
+                display: grid;
+                grid-template-columns: 1fr 1fr 1fr;
+                grid-template-rows: 1fr 1fr;
+                gap: 40px;
+                margin: 40px auto;
+            }
         }
 
         /* SVG Overlay for Connections */
@@ -104,18 +148,34 @@
 
         /* Central Logo Styling */
         .center-hub {
-            grid-column: 2;
-            grid-row: 1 / span 2;
+            order: -1;
             justify-self: center;
             align-self: center;
             position: relative;
             z-index: 5;
+            margin-bottom: 8px;
+        }
+
+        @media (min-width: 640px) and (max-width: 1023px) {
+            .center-hub {
+                grid-column: 1 / -1;
+                margin-bottom: 8px;
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .center-hub {
+                order: 0;
+                grid-column: 2;
+                grid-row: 1 / span 2;
+                margin-bottom: 0;
+            }
         }
 
         .root-logo-container {
             background: var(--card-color);
-            width: 190px;
-            height: 190px;
+            width: 140px;
+            height: 140px;
             border-radius: 50%;
             display: flex;
             flex-direction: column;
@@ -127,23 +187,50 @@
             cursor: pointer;
         }
 
-        .root-logo-container:hover {
-            transform: scale(1.08);
-            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.08);
+        @media (min-width: 1024px) {
+            .root-logo-container {
+                width: 190px;
+                height: 190px;
+            }
+        }
+
+        @media (hover: hover) {
+            .root-logo-container:hover {
+                transform: scale(1.08);
+                box-shadow: 0 15px 40px rgba(0, 0, 0, 0.08);
+            }
+        }
+
+        .root-logo-container:active {
+            transform: scale(0.96);
         }
 
         .root-logo-svg {
-            width: 75px;
-            height: 75px;
-            margin-bottom: 4px;
+            width: 54px;
+            height: 54px;
+            margin-bottom: 3px;
+        }
+
+        @media (min-width: 1024px) {
+            .root-logo-svg {
+                width: 75px;
+                height: 75px;
+                margin-bottom: 4px;
+            }
         }
 
         .root-text {
-            font-size: 1.5rem;
+            font-size: 1.15rem;
             font-weight: 700;
             letter-spacing: 0.15em;
             color: var(--text-main);
             text-indent: 0.15em;
+        }
+
+        @media (min-width: 1024px) {
+            .root-text {
+                font-size: 1.5rem;
+            }
         }
 
         /* Core Pulse Animation for Logo */
@@ -162,7 +249,7 @@
         /* Section Cards */
         .section-card {
             background: var(--card-color);
-            padding: 30px;
+            padding: 20px;
             border-radius: 16px;
             border: 1px solid var(--border-color);
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.02);
@@ -170,17 +257,33 @@
             position: relative;
             z-index: 5;
             cursor: pointer;
-            min-height: 190px;
+            width: 100%;
             height: auto;
             display: flex;
             flex-direction: column;
             justify-content: center;
         }
 
-        .section-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.06);
-            border-color: var(--accent-color);
+        @media (min-width: 640px) and (max-width: 1023px) {
+            .section-card {
+                height: 100%;
+                padding: 24px;
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .section-card {
+                padding: 30px;
+                min-height: 190px;
+            }
+        }
+
+        @media (hover: hover) {
+            .section-card:hover {
+                transform: translateY(-4px);
+                box-shadow: 0 12px 24px rgba(0, 0, 0, 0.06);
+                border-color: var(--accent-color);
+            }
         }
 
         .section-card.active {
@@ -190,24 +293,37 @@
         }
 
         .card-title {
-            font-size: 1.15rem;
+            font-size: 1.05rem;
             font-weight: 600;
-            line-height: 1.4;
+            line-height: 1.35;
             color: var(--text-main);
-            margin-bottom: 8px;
+            margin-bottom: 6px;
         }
 
         .card-description {
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             color: var(--text-muted);
             line-height: 1.5;
         }
 
-        /* Specific Grid Positioning for Flow */
-        .card-1 { grid-column: 1; grid-row: 1; }
-        .card-2 { grid-column: 3; grid-row: 1; }
-        .card-3 { grid-column: 1; grid-row: 2; }
-        .card-4 { grid-column: 3; grid-row: 2; }
+        @media (min-width: 1024px) {
+            .card-title {
+                font-size: 1.15rem;
+                line-height: 1.4;
+                margin-bottom: 8px;
+            }
+            .card-description {
+                font-size: 0.9rem;
+            }
+        }
+
+        /* Specific Desktop Grid Positioning for Flow */
+        @media (min-width: 1024px) {
+            .card-1 { grid-column: 1; grid-row: 1; }
+            .card-2 { grid-column: 3; grid-row: 1; }
+            .card-3 { grid-column: 1; grid-row: 2; }
+            .card-4 { grid-column: 3; grid-row: 2; }
+        }
 
         /* Anchor Target Points inside cards for layout engine */
         .anchor {
@@ -215,11 +331,15 @@
             width: 1px;
             height: 1px;
             visibility: hidden;
+            left: 50%;
+            top: 0;
         }
-        .card-1 .anchor { right: 0; top: 50%; }
-        .card-2 .anchor { left: 0; top: 50%; }
-        .card-3 .anchor { right: 0; top: 50%; }
-        .card-4 .anchor { left: 0; top: 50%; }
+        @media (min-width: 1024px) {
+            .card-1 .anchor { right: 0; left: auto; top: 50%; }
+            .card-2 .anchor { left: 0; top: 50%; }
+            .card-3 .anchor { right: 0; left: auto; top: 50%; }
+            .card-4 .anchor { left: 0; top: 50%; }
+        }
 
         /* Keyframes for internal animations */
         @keyframes ripple {
@@ -297,7 +417,9 @@
         </div>
     </div>
 
-    <div></div> <script>
+    <div class="hidden lg:block"></div>
+
+    <script>
         const container = document.getElementById('presentationContainer');
         const overlay = document.getElementById('svgOverlay');
         const hub = document.getElementById('centerHub');
@@ -306,13 +428,15 @@
         let currentSequence = 1;
         let autoCycleTimer;
 
-        // Dynamic Vector Path Calculation Engine
+        // Dynamic Vector Path Calculation Engine (adapts to mobile stacked vs desktop 3-column layout)
         styleStructure();
         window.addEventListener('resize', styleStructure);
+        setTimeout(styleStructure, 200);
 
         function styleStructure() {
             const containerRect = container.getBoundingClientRect();
             const hubRect = hub.getBoundingClientRect();
+            const isDesktop = window.innerWidth >= 1024;
             
             const hubX = (hubRect.left + hubRect.width / 2) - containerRect.left;
             const hubY = (hubRect.top + hubRect.height / 2) - containerRect.top;
@@ -326,10 +450,15 @@
                 const startY = (anchorRect.top + anchorRect.height / 2) - containerRect.top;
 
                 const path = document.getElementById(`path${i}`);
-                
-                // Creates a clean, minimalist bezier curvature guiding lines into the core hub
-                const controlX = startX + (hubX - startX) * 0.5;
-                const d = `M ${startX} ${startY} Q ${controlX} ${startY} ${hubX} ${hubY}`;
+                let d;
+
+                if (isDesktop) {
+                    const controlX = startX + (hubX - startX) * 0.5;
+                    d = `M ${startX} ${startY} Q ${controlX} ${startY} ${hubX} ${hubY}`;
+                } else {
+                    const controlY = startY + (hubY - startY) * 0.5;
+                    d = `M ${startX} ${startY} Q ${startX} ${controlY} ${hubX} ${hubY}`;
+                }
                 
                 path.setAttribute('d', d);
             }
@@ -337,15 +466,14 @@
 
         // Animated Component Pulse Routing Mechanics
         function fireSequence(index) {
-            clearInterval(autoCycleTimer); // Pause auto loop on interactive gesture
+            clearInterval(autoCycleTimer);
+            styleStructure();
             executeFlowAnimation(index, () => {
-                // Gracefully resume automatic presentations cycles
                 startAutoCycle();
             });
         }
 
         function executeFlowAnimation(index, callback) {
-            // Manage UI element styling state
             document.querySelectorAll('.section-card').forEach(c => c.classList.remove('active'));
             document.querySelectorAll('.connection-line').forEach(l => l.style.stroke = 'var(--border-color)');
             
@@ -356,13 +484,12 @@
             card.classList.add('active');
             line.style.stroke = 'var(--accent-color)';
 
-            // Path duration tracing variables
             const totalLength = line.getTotalLength();
             let progression = 0;
             dot.style.opacity = '1';
 
             function step() {
-                progression += 0.012; // Slower, premium laser flow speed metric
+                progression += 0.014;
                 if (progression <= 1) {
                     const point = line.getPointAtLength(progression * totalLength);
                     dot.setAttribute('cx', point.x);
@@ -379,12 +506,13 @@
 
         function triggerHubImpact() {
             pulseEffect.classList.remove('animate-ripple');
-            void pulseEffect.offsetWidth; // Force CSS engine reflow layout update
+            void pulseEffect.offsetWidth;
             pulseEffect.classList.add('animate-ripple');
         }
 
         function triggerAllFlows() {
             clearInterval(autoCycleTimer);
+            styleStructure();
             let delay = 0;
             for (let i = 1; i <= 4; i++) {
                 setTimeout(() => {
@@ -395,15 +523,15 @@
             setTimeout(startAutoCycle, 3000);
         }
 
-        // Automatic business pitch display pipeline execution
         function startAutoCycle() {
             autoCycleTimer = setInterval(() => {
+                styleStructure();
                 executeFlowAnimation(currentSequence, null);
                 currentSequence = currentSequence >= 4 ? 1 : currentSequence + 1;
-            }, 6500); // Rare and deliberate automatic laser triggers
+            }, 6500);
         }
 
-        // --- NEW INTERACTIVE BACKGROUND ANIMATION ---
+        // --- INTERACTIVE BACKGROUND ANIMATION ---
         const canvas = document.getElementById('bgCanvas');
         const ctx = canvas.getContext('2d');
         let particles = [];
@@ -426,6 +554,18 @@
             mouse.y = null;
         });
 
+        window.addEventListener('touchstart', (e) => {
+            if (e.touches.length > 0) {
+                mouse.x = e.touches[0].clientX;
+                mouse.y = e.touches[0].clientY;
+            }
+        }, { passive: true });
+
+        window.addEventListener('touchend', () => {
+            mouse.x = null;
+            mouse.y = null;
+        }, { passive: true });
+
         class Particle {
             constructor() {
                 this.x = Math.random() * canvas.width;
@@ -440,11 +580,9 @@
                 this.x += this.vx;
                 this.y += this.vy;
 
-                // Bounce off edges smoothly
                 if (this.x < 0 || this.x > canvas.width) this.vx *= -1;
                 if (this.y < 0 || this.y > canvas.height) this.vy *= -1;
 
-                // Interactive mouse repulsion/drift effect
                 if (mouse.x !== null && mouse.y !== null) {
                     let dx = mouse.x - this.x;
                     let dy = mouse.y - this.y;
@@ -468,7 +606,8 @@
 
         function initParticles() {
             particles = [];
-            const particleCount = Math.floor((canvas.width * canvas.height) / 14000);
+            const density = window.innerWidth < 768 ? 18000 : 14000;
+            const particleCount = Math.floor((canvas.width * canvas.height) / density);
             for (let i = 0; i < particleCount; i++) {
                 particles.push(new Particle());
             }
@@ -477,15 +616,15 @@
         function renderBackground() {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-            // Connect nearby floating particles with dynamic light grey lines
+            const connectDist = window.innerWidth < 768 ? 105 : 130;
             for (let i = 0; i < particles.length; i++) {
                 for (let j = i + 1; j < particles.length; j++) {
                     let dx = particles[i].x - particles[j].x;
                     let dy = particles[i].y - particles[j].y;
                     let dist = Math.sqrt(dx * dx + dy * dy);
 
-                    if (dist < 130) {
-                        let opacity = (1 - dist / 130) * 0.35;
+                    if (dist < connectDist) {
+                        let opacity = (1 - dist / connectDist) * 0.35;
                         ctx.strokeStyle = `rgba(200, 202, 212, ${opacity})`;
                         ctx.lineWidth = 1;
                         ctx.beginPath();
@@ -496,7 +635,6 @@
                 }
             }
 
-            // Draw individual particles
             particles.forEach(p => {
                 p.update();
                 p.draw();
@@ -505,12 +643,11 @@
             requestAnimationFrame(renderBackground);
         }
 
-        // Initialize background environment
         resizeCanvas();
         renderBackground();
 
-        // Initialize presentation engine cycles
         setTimeout(() => {
+            styleStructure();
             startAutoCycle();
             executeFlowAnimation(1, null);
             currentSequence = 2;
